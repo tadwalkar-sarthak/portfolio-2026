@@ -1,31 +1,25 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import AppLogo from "@/components/ui/AppLogo";
+'use client';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Education", href: "#education" },
-  { label: "Contact", href: "#contact" },
+  { label: 'About', href: '#about' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Education', href: '#education' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 40);
 
-      const sections = [
-        "about",
-        "experience",
-        "projects",
-        "education",
-        "contact",
-      ];
+      const sections = ['about', 'experience', 'projects', 'education', 'contact'];
       for (const id of sections?.reverse()) {
         const el = document.getElementById(id);
         if (el && window.scrollY >= el?.offsetTop - 120) {
@@ -34,14 +28,14 @@ export default function Header() {
         }
       }
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     };
   }, [menuOpen]);
 
@@ -49,15 +43,19 @@ export default function Header() {
     <>
       <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-background/80 backdrop-blur-xl border-b border-border"
-            : "bg-transparent"
+          scrolled ? 'bg-background/80 backdrop-blur-xl border-b border-border' : 'bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 h-16 flex items-center justify-between">
           {/* Logo */}
           <a href="/" className="flex items-center gap-2.5 group">
-            <AppLogo size={32} />
+            <Image
+              src="/assets/images/my-logo.png"
+              alt="Sarthak Logo"
+              width={32}
+              height={32}
+              className="object-contain"
+            />
             <span className="font-display text-lg font-medium text-foreground tracking-tight">
               Sarthak<span className="text-primary">.</span>
             </span>
@@ -70,9 +68,9 @@ export default function Header() {
                 key={link?.href}
                 href={link?.href}
                 className={`text-sm font-medium transition-colors duration-200 ${
-                  activeSection === link?.href?.replace("#", "")
-                    ? "text-primary"
-                    : "text-muted-foreground hover:text-foreground"
+                  activeSection === link?.href?.replace('#', '')
+                    ? 'text-primary'
+                    : 'text-muted-foreground hover:text-foreground'
                 }`}
               >
                 {link?.label}
@@ -92,18 +90,18 @@ export default function Header() {
 
           {/* Hamburger */}
           <button
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             className="md:hidden flex flex-col gap-1.5 p-2 z-50"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <span
-              className={`block w-6 h-0.5 bg-foreground transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`}
+              className={`block w-6 h-0.5 bg-foreground transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`}
             />
             <span
-              className={`block w-6 h-0.5 bg-foreground transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`}
+              className={`block w-6 h-0.5 bg-foreground transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`}
             />
             <span
-              className={`block w-6 h-0.5 bg-foreground transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}
+              className={`block w-6 h-0.5 bg-foreground transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`}
             />
           </button>
         </div>
@@ -111,9 +109,7 @@ export default function Header() {
       {/* Mobile Menu */}
       <div
         className={`fixed inset-0 z-40 bg-background/95 backdrop-blur-xl flex flex-col justify-center items-center transition-all duration-500 md:hidden ${
-          menuOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+          menuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
         <nav className="flex flex-col items-center gap-8">
@@ -123,7 +119,7 @@ export default function Header() {
               href={link?.href}
               onClick={() => setMenuOpen(false)}
               className="font-display text-4xl font-light text-muted-foreground hover:text-foreground transition-colors"
-              style={{ transitionDelay: menuOpen ? `${i * 60}ms` : "0ms" }}
+              style={{ transitionDelay: menuOpen ? `${i * 60}ms` : '0ms' }}
             >
               {link?.label}
             </a>
